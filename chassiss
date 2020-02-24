@@ -1,0 +1,83 @@
+package frc.robot;
+
+
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PWMVictorSPX;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
+
+
+public class Robot extends TimedRobot {
+  
+ public static PWMVictorSPX left_front = new PWMVictorSPX(0);
+ public static PWMVictorSPX left_rear = new PWMVictorSPX(1);
+ public static PWMVictorSPX right_front = new PWMVictorSPX(2);
+ public static PWMVictorSPX right_rear = new PWMVictorSPX(3);
+
+ public static SpeedControllerGroup left = new SpeedControllerGroup(left_front, left_rear);
+ public static SpeedControllerGroup right = new SpeedControllerGroup(right_front, right_rear);
+ 
+ public static DifferentialDrive chassis = new DifferentialDrive(left, right);
+
+
+
+
+ public static Joystick stick = new Joystick(0);
+ public static JoystickButton stick_button = new JoystickButton(stick,2);
+
+
+
+  @Override
+  public void robotInit() {
+   
+  }
+
+
+  @Override
+  public void robotPeriodic() {
+  }
+
+ 
+  @Override
+  public void autonomousInit() {
+
+  }
+
+
+  @Override
+  public void autonomousPeriodic() {
+
+    
+    
+    }
+  
+
+
+  @Override
+  public void teleopPeriodic() {
+
+    chassis.arcadeDrive(stick.getY(), stick.getX());
+
+
+
+    switch() {
+      case stick_button.get() :
+      chassis.arcadeDrive(stick.getY()*-1, stick.getX());
+        break;
+    
+      default:
+      chassis.arcadeDrive(stick.getY(), stick.getX());
+        break;
+    }
+    }
+   
+
+  
+  @Override
+  public void testPeriodic() {
+  }
+}
